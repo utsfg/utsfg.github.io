@@ -1,41 +1,70 @@
-<!DOCTYPE html> 
-<html>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-<head>
-<meta charset="UTF-8">
-<title>混杂服务器介绍</title>
-<style>  
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>混杂服务器介绍</title>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>  
+    <style>  
+        body {  
+            background-image: url('E-1110517-0B4D764E.jpg');  
+            background-repeat: no-repeat;  
+            background-attachment: fixed;  
+            background-size: 100% 100%;  
+        }  
         .image-container {  
             display: flex;  
             justify-content: center;  
-            align-items: center;   
+            align-items: center;  
         }  
         .image-container img {  
             margin: 0 10px;  
-        }
+        }   
+    #t1 {  
+        width: 1200px;  
+        height: 100px;  
+        border-collapse: collapse; 
+        margin: auto; 
+    }  
+    #t1 td, #t1 th {  
+        border: 1px solid black; 
+        text-align: center; 
+        vertical-align: middle;   
+        padding: 4px; 
+    }  
+    .animated {   
+    animation-duration: 1s;  
+    animation-fill-mode: both;
+  }  
+  
+  .fadeIn {  
+    animation-name: fadeIn; 
+  }  
+  @keyframes fadeIn {  
+    from {  
+      opacity: 0; 
+    }  
+    to {  
+      opacity: 1; 
+    }  
+  }  
 </style>  
-<style>
-body
-{
-background-image:url('E-1110517-0B4D764E.jpg');
-background-repeat:no-repeat;
-background-attachment:fixed;
-background-size:100% 100%;"
-}
-</style>  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	</style>  
+</head>  
 <body class="animated fadeIn">
 <div style="text-align: center; font-size: 40px; color: black;">
 Minecraft java版1.20.1 工业 空岛</div>
-<div style="text-align: center; font-size: 25px; color: black;">不想玩空岛?同时也配备了主世界。</div>
-<div style="text-align: center; font-size: 25px; color: black;">客户端下载地址:<a href="https://www.123pan.com/s/Lvxijv-TpMgh.html">点击下载</a></div>
-<div style="text-align: center; font-size: 25px; color: black;">服务器官方q群:<a href="https://qm.qq.com/q/jQyxudtZkc">885627826</a></div>
-<div style="text-align: center; font-size: 20px; color: black;">服务器模组列表</div>
-<hr>
-<div style="text-align: center; font-size: 20px; color: black;">工业</div>
-<table align="center" border="1" id="t1" style="width:1200px;height:100px">
-	<tbody align="center" valign="center">
+<div style="text-align: center; font-size: 25px; color: black;">  
+    不想玩空岛? 同时也配备了主世界。<br>  
+    客户端下载地址: <a href="https://www.123pan.com/s/Lvxijv-TpMgh.html">点击下载</a><br>  
+    服务器官方q群: <a href="https://qm.qq.com/q/jQyxudtZkc">885627826</a>  
+</div>
+<div style="text-align: center; font-size: 20px; color: black;">  
+    服务器模组列表  
+    <hr>  
+    工业  
+</div>
+<table id="t1">
     <tr>
         <td>应用能源2</td><td>应用能源：植物魔法附属</td><td>应用能源：通用机械附属</td><td>bigger_ae2</td><td>AE2扩展</td><td>AEAdditions</td>
     </tr>
@@ -52,20 +81,23 @@ Minecraft java版1.20.1 工业 空岛</div>
 	    <td>沉浸工程</td><td>工业先锋</td><td>industrial-foregoing-souls</td><td>交错道途</td><td>通量网络</td><td>无中生有:传承</td><td>压缩工具</td><td>exmachinis</td>
 	</tr>
     <tr>
-        <td>ad_astra</td><td>ad_astra_rocket</td><td>Ad-Astra-Giselle-Addon</td>	
+        <td>ad_astra</td><td>ad_astra_rocket</td><td>Ad-Astra-Giselle-Addon</td><td>龙之进化;龙之研究</td><td>龙之进化拓展</td><td>无尽贪婪;重生</td>	
 </table>
 <div style="text-align: center; font-size: 20px; color: black;">魔法</div>
-<table align="center" border="1" id="t1" style="width:200px;height:50px">
+<table id="t1">
 	<tbody align="center" valign="center">
 	<tr>
-	 <td>新生魔艺</td><td>植物魔法</td>
+	 <td>新生魔艺</td><td>ars_creo</td><td>ars_elemental</td><td>arseng</td><td>ars_artifice</td><td>starbunclemania</td><td>toomanyglyphs</td>
+	</tr>
+	<tr>
+	 <td>植物魔法</td><td>神话植物学</td>
 	</tr>
 </table>
 <div style="text-align: center; font-size: 20px; color: black;">冒险</div>
-<table align="center" border="1" id="t1" style="width:1200px;height:100px">
+<table id="t1">
 	<tbody align="center" valign="center">
 	<tr>
-	 <td>alex的洞穴</td><td>alex的生物</td><td>jerotes的村庄</td><td>Majrusz的进阶难度</td><td>Tacz及其附属包</td><td>冰火传说</td>
+	 <td>alex的洞穴</td><td>alex的生物</td><td>jerotes的村庄</td><td>Majrusz的进阶难度</td><td>冰火传说</td><td>雾中人</td>
 	</tr>
 	<tr>
 	 <td>车万女仆</td><td>沉浸式飞机</td><td>凡家物语:重生</td><td>结构变体</td><td>精妙背包</td><td>苦力怕革新</td>
@@ -73,16 +105,21 @@ Minecraft java版1.20.1 工业 空岛</div>
 	<tr>
 	 <td>傀儡装配</td><td>农夫乐事</td><td>玉米乐事</td><td>alex's Delight</td><td>末地乐事</td><td>MyNethersDelight</td>
 	</tr>
-	 <td>天空村庄</td><td>BuckshotRoulette</td><td>拔刀剑:重锋</td><td>拔刀剑日系附属包</td>
+	<tr>
+	 <td>天空村庄</td><td>BuckshotRoulette</td>
+	</tr>
 </table>
-<div style="font-size: 20px; color: black;">注:模组未完全列出</div>
-<div style="font-size: 20px; color: black;">不了解的模组请在这里查询:<a href="https://www.mcmod.cn">mc百科</a></div>
+<div style="font-size: 20px; color: black;">
+注:模组未完全列出
+不了解的模组请在这里查询:<a href="https://www.mcmod.cn">mc百科</a></div>
 <hr>
-<div style="font-size: 20px; color: black;">服主/管理员:utsfg</div>
-<div style="font-size: 20px; color: black;">服务器公告</div>
+服主/管理员:1人
+服务器公告
+</div>
 <iframe src="./1.html">
   <p>您的浏览器不支持  iframe 标签。</p>
 </iframe>
-<div style="font-size: 20px; color: black;">对服务器进行赞助:<a href="https://afdian.com/a/utsfg">点我跳转</a></div>
-<div style="font-size: 20px; color: black;">java22下载地址:<a href="https://cdn.azul.com/zulu/bin/zulu22.32.15-ca-jdk22.0.2-win_x64.msi">点击下载</a></div>
+<div style="font-size: 20px; color: black;">
+对服务器进行赞助:<a href="https://afdian.com/a/utsfg">点我跳转</a>
+java22下载地址:<a href="https://cdn.azul.com/zulu/bin/zulu22.32.15-ca-jdk22.0.2-win_x64.msi">点击下载</a></div>
 </body>
