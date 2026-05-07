@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hiafnu生存服务器 - 生电·公会·圈地·基岩版互通</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 动态背景粒子 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(100, 200, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* 头部区域 */
+        header {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+        }
+
+        .server-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #a8edea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(168, 237, 234, 0.3);
+        }
+
+        .version-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(56, 239, 125, 0.3);
+        }
+
+        /* IP地址卡片 */
+        .ip-section {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .ip-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .ip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .ip-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .ip-address {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #38ef7d;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: color 0.3s;
+            user-select: all;
+        }
+
+        .ip-address:hover {
+            color: #11998e;
+        }
+
+        .copy-hint {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 10px;
+        }
+
+        /* 特色功能 */
+        .features {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color-2) 100%);
+            box-shadow: 0 15px 40px var(--accent-glow);
+        }
+
+        .feature-card:nth-child(1) {
+            --accent-color: #f093fb;
+            --accent-color-2: #f5576c;
+            --accent-glow: rgba(245, 87, 108, 0.3);
+        }
+
+        .feature-card:nth-child(2) {
+            --accent-color: #4facfe;
+            --accent-color-2: #00f2fe;
+            --accent-glow: rgba(79, 172, 254, 0.3);
+        }
+
+        .feature-card:nth-child(3) {
+            --accent-color: #43e97b;
+            --accent-color-2: #38f9d7;
+            --accent-glow: rgba(67, 233, 123, 0.3);
+        }
+
+        .feature-card:nth-child(4) {
+            --accent-color: #fa709a;
+            --accent-color-2: #fee140;
+            --accent-glow: rgba(250, 112, 154, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* 统计信息 */
+        .stats {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* 页脚 */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(0deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+            color: rgba(255,255,255,0.5);
+        }
+
+        footer a {
+            color: #38ef7d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #11998e;
+        }
+
+        /* 复制成功提示 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(56, 239, 125, 0.4);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .ip-address {
+                font-size: 1.3rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        /* 方块装饰动画 */
+        .block-decoration {
+            position: fixed;
+            font-size: 30px;
+            opacity: 0.1;
+            animation: float-block 20s infinite linear;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes float-block {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="particles" id="particles"></div>
+
+    <!-- 方块装饰 -->
+    <div class="block-decoration" style="left: 10%; animation-delay: 0s;">⬜</div>
+    <div class="block-decoration" style="left: 20%; animation-delay: 3s;">🟫</div>
+    <div class="block-decoration" style="left: 35%; animation-delay: 7s;">🟩</div>
+    <div class="block-decoration" style="left: 55%; animation-delay: 5s;">⬛</div>
+    <div class="block-decoration" style="left: 70%; animation-delay: 2s;">🟦</div>
+    <div class="block-decoration" style="left: 85%; animation-delay: 8s;">🟨</div>
+    <div class="block-decoration" style="left: 95%; animation-delay: 4s;">🟥</div>
+
+    <!-- 头部 -->
+    <header>
+        <div class="server-icon">⛏️</div>
+        <h1>hiafnu生存</h1>
+        <span class="version-tag">🎮 Java版 1.9-26.1.1 | 基岩版互通</span>
+    </header>
+
+    <!-- IP地址 -->
+    <section class="ip-section">
+        <div class="ip-card">
+            <div class="ip-label">🌐 服务器地址</div>
+            <div class="ip-address" onclick="copyIP()">mc.utsfg.top:22064</div>
+            <div class="copy-hint">点击复制IP地址</div>
+        </div>
+    </section>
+
+    <!-- 特色功能 -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">⚔️</div>
+            <h3>公会系统</h3>
+            <p>创建或加入公会，与志同道合的伙伴一起冒险。公会等级、专属领地、团队任务，体验团队协作的乐趣！</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>圈地保护</h3>
+            <p>强大的圈地插件保护你的劳动成果。自由设置领地权限，防止恶意破坏，安心建造你的梦想家园。</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>生电友好</h3>
+            <p>服务器允许生电（生存红石），支持各类红石机械、自动农场、刷怪塔。释放你的创造力，打造自动化王国！</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>基岩版互通</h3>
+            <p>支持基岩版（手机/主机/Win10）玩家与Java版同服游戏！无论你是PC玩家还是移动端玩家，都能一起冒险建造。</p>
+        </div>
+    </section>
+
+    <!-- 统计信息 -->
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number">1.9+</div>
+            <div class="stat-label">Java版版本</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">📱</div>
+            <div class="stat-label">基岩版支持</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">在线运行</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">✓</div>
+            <div class="stat-label">生电支持</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">无限可能</div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>🌟 欢迎加入 hiafnu生存服务器，Java版与基岩版玩家同服竞技！</p>
+        <p style="margin-top: 10px;">服务器IP: <a href="#" onclick="copyIP(); return false;">mc.utsfg.top:22064</a></p>
+    </footer>
+
+    <!-- 复制成功提示 -->
+    <div class="toast" id="toast">✅ IP地址已复制到剪贴板！</div>
+
+    <script>
+        // 生成背景粒子
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // 复制IP地址
+        function copyIP() {
+            const ip = 'mc.utsfg.top:22064';
+            navigator.clipboard.writeText(ip).then(() => {
+                showToast();
+            }).catch(() => {
+                // 降级方案
+                const input = document.createElement('input');
+                input.value = ip;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast();
+            });
+        }
+
+        // 显示提示
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // 初始化
+        createParticles();
+
+        // 添加卡片进入动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
